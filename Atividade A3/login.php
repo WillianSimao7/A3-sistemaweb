@@ -3,29 +3,30 @@ include ('config.php');
 session_start();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $login = $_POST('login');
+    $login = $_POST['login'];
     $senha = $_POST['senha'];
 
     $login = mysqli_real_escape_string($con, $login);
     $senha = mysqli_real_escape_string($con, $senha);
 
-    $query="SELECT * FROM usuario WHERE login='$login'";
+    $query="SELECT * FROM usuario WHERE login='$login' AND senha='$senha'";
     $result=mysqli_query($con, $query);
 
-        if($result && mysql_num_rows($result) > 0){
-            $user = mysqli_fetch_assoc($result);
-        }
+    while ($coluna=mysqli_fetch_array($result)) 
+	{
+		
+		$_SESSION["id_usuario"]= $coluna["id"]; 
+		$_SESSION["nome_usuario"] = $coluna["login"]; 
+		header("Location: menu.php"); 
+		exit; 
 
-            if(password_verify($senha, $user['senha'])){
-                $_SESSION['login'] = $user['login'];
-                $_SESSION['id'] = $user['id'];
+	}
 
-                header("Location:menu.php");
-                exit;
-            }else {
-                echo "Senha incorreta.";
-            }
+}
 
+if(@$_REQUEST['botao']=="Sem"){
+    header("Location: menu_semlogin.php");
+    exit;
 }
 
 
@@ -41,9 +42,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <form action=# method=POST>
 
     Login: <input type=text name=login>
-    Senha: <input type=password name=senha>
+    Senha: <input type=password name=senha><br>
     <input type=submit name=botao value=Entrar>
-    <input type=submit name=botao value=Cadastro>
+    <input type=submit name=botao value=Cadastro><br>
+    <h3>Continue sem login:</h3>
+    <input type=submit name=botao value="Sem Login">
     </form>
 </body>
 </html>
