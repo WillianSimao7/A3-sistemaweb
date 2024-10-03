@@ -7,5 +7,4 @@ if(!$con || !$db){
     echo mysql_error($con);
     echo "</pre>";
 }
-
 ?>
