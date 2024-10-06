@@ -3,6 +3,7 @@ include('config.php');
 
 // Pede informações para criar anúncio e salva informações no banco de dados
 if (@$_REQUEST['botao'] == "Anunciar") {
+    $descricao = $_POST['descricao'];
     $marca = $_POST['marca'];
     $modelo = $_POST['modelo'];
     $ano = $_POST['ano'];
@@ -10,7 +11,7 @@ if (@$_REQUEST['botao'] == "Anunciar") {
     $preco = $_POST['preco'];
     $km = $_POST['km'];
 
-    $query = "INSERT INTO anunciar (marca, modelo, ano, cor, preco, km) VALUES ('$marca', '$modelo','$ano','$cor','$preco','$km')";
+    $query = "INSERT INTO anunciar (descricao, marca, modelo, ano, cor, preco, km) VALUES ('$descricao', '$marca', '$modelo','$ano','$cor','$preco','$km')";
     $result = mysqli_query($con, $query);
 }
 
@@ -43,7 +44,7 @@ if (@$_REQUEST['botao'] == "Voltar") {
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 400px;
             text-align: center;
         }
 
@@ -53,12 +54,17 @@ if (@$_REQUEST['botao'] == "Voltar") {
             color: #333;
         }
 
-        input[type="text"], input[type="number"] {
+        textarea, input[type="text"], input[type="number"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+            resize: vertical;
+        }
+
+        textarea {
+            height: 100px; /* Altura maior para o campo de descrição */
         }
 
         input[type="submit"] {
@@ -82,6 +88,7 @@ if (@$_REQUEST['botao'] == "Voltar") {
     <div class="form-container">
         <h3>Crie seu anúncio:</h3>
         <form action="#" method="POST">
+            Descrição: <textarea name="descricao"></textarea>
             Marca: <input type="text" name="marca" required><br>
             Modelo: <input type="text" name="modelo" required><br>
             Ano: <input type="number" name="ano" required><br>

@@ -7,7 +7,7 @@ if (@$_REQUEST['botao'] == "Entrar") {
 
     // verifica login e senha
     $login = $_POST['login'];
-    $senha = $_POST['senha'];
+    $senha = md5($_POST['senha']);
 
     $query = "SELECT * FROM usuario WHERE login='$login' AND senha='$senha'";
     $result = mysqli_query($con, $query);
@@ -74,7 +74,7 @@ if (@$_REQUEST['botao'] == "Entrar") {
             border-radius: 5px;
         }
 
-        input[type="submit"] {
+        input[type="submit"], .custom-button {
             width: 100%;
             padding: 10px;
             background-color: #007BFF;
@@ -83,10 +83,19 @@ if (@$_REQUEST['botao'] == "Entrar") {
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
 
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, .custom-button:hover {
             background-color: #0056b3;
+        }
+
+        button.custom-button {
+            background-color: #28a745;
+        }
+
+        button.custom-button:hover {
+            background-color: #218838;
         }
 
         .footer {
@@ -104,7 +113,8 @@ if (@$_REQUEST['botao'] == "Entrar") {
             <input type="text" name="login" placeholder="Login" required>
             <input type="password" name="senha" placeholder="Senha" required><br>
             <input type="submit" name="botao" value="Entrar">
-            <button type="button" onclick="window.location.href='cadastro.php';">Cadastro</button><br>
+            <button type="button" class="custom-button" onclick="window.location.href='cadastro.php';">Cadastro</button><br>
+            <button type="button" class="custom-button" onclick="window.location.href='menusemlogin.php';">Continuar sem login</button>
         </form>
     </div>
 

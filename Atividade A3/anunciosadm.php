@@ -60,7 +60,7 @@
             $preco = $_POST['preco'] ?? '';
             $km = $_POST['km'] ?? '';
 
-            $query = "SELECT * FROM anunciar WHERE id > 0"; // sempre começa com uma condição verdadeira
+            $query = "SELECT * FROM anunciar WHERE id > 0"; 
 
             if (!empty($marca)) {
                 $query .= " AND marca LIKE '%$marca%'";
@@ -69,7 +69,7 @@
                 $query .= " AND modelo LIKE '%$modelo%'";
             }
             if (!empty($ano)) {
-                $query .= " AND ano = '$ano'"; // Para números exatos
+                $query .= " AND ano = '$ano'"; 
             }
             if (!empty($cor)) {
                 $query .= " AND cor LIKE '%$cor%'";

@@ -7,7 +7,7 @@ if (isset($_POST['botao']) && $_POST['botao'] == "Cadastrar") {
     $email = $_POST['email'];
     $telefone = $_POST['telefone'];
     $login = $_POST['login'];
-    $senha = $_POST['senha'];
+    $senha = md5($_POST['senha']);
     $nivel = $_POST['nivel'];
 
     // Valida se todos os campos foram preenchidos antes de inserir no banco

@@ -1,11 +1,14 @@
 <html>
 <head>
 <title>Anunciados</title>
-<?php include ('config.php');  ?>
+<?php 
+include ('config.php');
+session_start(); // Inicia sessão para verificar login
+?>
 </head>
 
 <body>
-<form action="anuncios.php?botao=Gerar" method="post" name="form1">
+<form action="#" method="post" name="form1"> <!-- Mantemos a ação na mesma página -->
 <table width="95%" border="1" align="center">
   <tr>
     <td colspan=16 align="center">Anunciados</td>
@@ -23,12 +26,6 @@
     <td width="17%" align="right">Cor:</td>
     <td width="18%"><input type="text" name="cor" size="3" /></td>
 
-    <td width="17%" align="right">Preço:</td>
-    <td width="18%"><input type="number" name="preco" size="3" /></td>
-
-    <td width="17%" align="right">Quilometragem:</td>
-    <td width="18%"><input type="number" name="km" size="3" /></td>
-
     <td width="21%"><input type="submit" name="botao" value="Gerar" /></td>
   </tr>
 </table>
@@ -43,9 +40,6 @@
     <th width="10%">Modelo</th>
     <th width="10%">Ano</th>
     <th width="10%">Cor</th>
-    <th width="10%">Preço</th>
-    <th width="10%">Quilometragem</th>
-    <th width="30%">Descrição</th>
   </tr>
 
 <?php
@@ -56,11 +50,9 @@ $marca = $_POST['marca'] ?? '';
 $modelo = $_POST['modelo'] ?? '';
 $ano = $_POST['ano'] ?? '';
 $cor = $_POST['cor'] ?? '';
-$preco = $_POST['preco'] ?? '';
-$km = $_POST['km'] ?? '';
 
 // Monta a query com as condições corretas
-$query = "SELECT * FROM anunciar WHERE id > 0"; 
+$query = "SELECT * FROM anunciar WHERE id > 0"; // sempre começa com uma condição verdadeira
 
 if (!empty($marca)) {
     $query .= " AND marca LIKE '%$marca%'";
@@ -73,12 +65,6 @@ if (!empty($ano)) {
 }
 if (!empty($cor)) {
     $query .= " AND cor LIKE '%$cor%'";
-}
-if (!empty($preco)) {
-    $query .= " AND preco = '$preco'";
-}
-if (!empty($km)) {
-    $query .= " AND km = '$km'";
 }
 
 // Executa a query
@@ -97,15 +83,17 @@ if (!$result) {
     <td width="10%"><?php echo $coluna['modelo']; ?></td>
     <td width="10%"><?php echo $coluna['ano']; ?></td>
     <td width="10%"><?php echo $coluna['cor']; ?></td>
-    <td width="10%"><?php echo $coluna['preco']; ?></td>
-    <td width="10%"><?php echo $coluna['km']; ?></td>
-    <td width="30%"><?php echo $coluna['descricao']; ?></td> 
  </tr>
 
 <?php
     } // fim while
 ?>
 </table>
+
+<!-- caixa de aviso no fim da página -->
+<div style="width: 95%; margin: 20px auto; padding: 10px; border: 1px solid #ff0000; background-color: #ffe6e6; text-align: center;">
+    <strong>Para mais informações, realizar o <button type="button" class="custom-button" onclick="window.location.href='login.php';">login</button><br></strong>
+</div>
 
 <?php
     } // fim else
