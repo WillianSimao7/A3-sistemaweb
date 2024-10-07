@@ -9,7 +9,7 @@ create table usuario(id int(3) auto_increment, nome varchar(200), email varchar(
 
 describe usuario;
 
-create table anunciar(id int(3) auto_increment, descricao varchar(255). marca varchar(50), modelo varchar(50), ano int(4), cor varchar(15), preco decimal(8,2), km decimal(8,2), primary key(id));
+create table anunciar(id int(3) auto_increment, descricao varchar(255), marca varchar(50), modelo varchar(50), ano int(4), cor varchar(15), preco decimal(8,2), km decimal(8,2), primary key(id));
 
 describe anunciar;
 
